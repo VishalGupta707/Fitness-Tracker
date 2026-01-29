@@ -1,0 +1,25 @@
+# Java
+target/
+*.log
+
+# IDE
+.idea/
+.vscode/
+*.iml
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Env
+.env
+
+# Node (if frontend is inside)
+node_modules/
+
+# Docker
+*.tar
+
+# Maven / Gradle
+.mvn/
+.gradle/

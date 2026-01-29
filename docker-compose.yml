@@ -1,0 +1,194 @@
+#services:
+#
+#  # -------------------- CONFIG SERVER -----------------------
+#  config-server:
+#    build: ./ConfigServer
+#    container_name: config-server
+#    ports:
+#      - "8888:8888"
+#    networks:
+#      - fitness-network
+#    healthcheck:
+#      test: [ "CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://localhost:8888/actuator/health" ]
+#      interval: 10s
+#      timeout: 5s
+#      retries: 5
+#
+#  # -------------------- EUREKA SERVER ----------------------
+#  eureka-server:
+#    build: ./Eureka
+#    container_name: eureka-server
+#    ports:
+#      - "8761:8761"
+#    depends_on:
+#      config-server:
+#        condition: service_healthy
+#    networks:
+#      - fitness-network
+#    healthcheck:
+#      test: [ "CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://localhost:8761/actuator/health" ]
+#      interval: 10s
+#      timeout: 5s
+#      retries: 5
+#
+#  # -------------------- POSTGRES (USER SERVICE) --------------------
+#  postgres:
+#    image: postgres:16
+#    container_name: postgres
+#    environment:
+#      POSTGRES_DB: fitness_user_db
+#      POSTGRES_USER: postgres
+#      POSTGRES_PASSWORD: Vishal@07
+#    ports:
+#      - "5432:5432"
+#    volumes:
+#      - postgres-data:/var/lib/postgresql/data
+#    networks:
+#      - fitness-network
+#    healthcheck:
+#      test: [ "CMD-SHELL", "pg_isready -U postgres" ]
+#      interval: 10s
+#      timeout: 5s
+#      retries: 5
+#
+#  # -------------------- MONGODB --------------------
+#  mongodb:
+#    image: mongo:7
+#    container_name: mongodb
+#    ports:
+#      - "27017:27017"
+#    volumes:
+#      - mongo-data:/data/db
+#    networks:
+#      - fitness-network
+#    healthcheck:
+#      test: echo 'db.runCommand("ping").ok' | mongosh localhost:27017/test --quiet
+#      interval: 10s
+#      timeout: 5s
+#      retries: 5
+#
+#  # -------------------- RABBITMQ --------------------
+#  rabbitmq:
+#    image: rabbitmq:3-management
+#    container_name: rabbitmq
+#    ports:
+#      - "5672:5672"
+#      - "15672:15672"
+#    networks:
+#      - fitness-network
+#    healthcheck:
+#      test: [ "CMD", "rabbitmq-diagnostics", "-q", "ping" ]
+#      interval: 10s
+#      timeout: 5s
+#      retries: 5
+#
+#  # -------------------- KEYCLOAK --------------------
+#  keycloak:
+#    image: quay.io/keycloak/keycloak:26.5.1
+#    container_name: keycloak
+#    command: start-dev
+#    ports:
+#      - "8181:8080"
+#    environment:
+#      KEYCLOAK_ADMIN: admin
+#      KEYCLOAK_ADMIN_PASSWORD: admin
+#    networks:
+#      - fitness-network
+#    healthcheck:
+#      test: [ "CMD", "/bin/bash", "-c", "exec 3<>/dev/tcp/localhost/8080" ]
+#      interval: 10s
+#      timeout: 5s
+#      retries: 20
+#
+#  # -------------------- USER / FITNESS SERVICE --------------------
+#  fitness-service:
+#    build: ./Fitness
+#    container_name: fitness-service
+#    depends_on:
+#      postgres:
+#        condition: service_healthy
+#      eureka-server:
+#        condition: service_healthy
+#      config-server:
+#        condition: service_healthy
+#    environment:
+#      SPRING_PROFILES_ACTIVE: docker
+#    networks:
+#      - fitness-network
+#
+#  # -------------------- ACTIVITY SERVICE --------------------
+#  activity-service:
+#    build: ./ActivityService
+#    container_name: activity-service
+#    depends_on:
+#      mongodb:
+#        condition: service_healthy
+#      eureka-server:
+#        condition: service_healthy
+#      config-server:
+#        condition: service_healthy
+#    environment:
+#      SPRING_PROFILES_ACTIVE: docker
+#    networks:
+#      - fitness-network
+#
+#  # -------------------- AI SERVICE --------------------
+#  ai-service:
+#    build: ./AiService
+#    container_name: ai-service
+#    depends_on:
+#      mongodb:
+#        condition: service_healthy
+#      rabbitmq:
+#        condition: service_healthy
+#      eureka-server:
+#        condition: service_healthy
+#      config-server:
+#        condition: service_healthy
+#    environment:
+#      SPRING_PROFILES_ACTIVE: docker
+#      GEMINI_API_URL: ${GEMINI_API_URL}
+#      GEMINI_API_KEY: ${GEMINI_API_KEY}
+#    networks:
+#      - fitness-network
+#
+#  # -------------------- API GATEWAY --------------------
+#  api-gateway:
+#    build: ./Gateway
+#    container_name: api-gateway
+#    ports:
+#      - "8080:8080"
+#    depends_on:
+#      eureka-server:
+#        condition: service_healthy
+#      config-server:
+#        condition: service_healthy
+#      keycloak:
+#        condition: service_healthy
+#    environment:
+#      SPRING_PROFILES_ACTIVE: docker
+#    networks:
+#      - fitness-network
+#
+#  # -------------------- FRONTEND --------------------
+#  frontend:
+#    build: ./Fitness-app-frontend
+#    container_name: fitness-frontend
+#    ports:
+#      - "5173:80"
+#    depends_on:
+#      - api-gateway
+#    networks:
+#      - fitness-network
+#
+## -------------------- NETWORK --------------------
+#networks:
+#  fitness-network:
+#    driver: bridge
+#
+## -------------------- VOLUMES --------------------
+#volumes:
+#  mongo-data:
+#  postgres-data:
+#
+#
