@@ -2,6 +2,7 @@ services:
   # Eureka Server
   - type: web
     name: eureka-server
+    runtime: image
     image: vishalcr7/eureka-server
     plan: free
     envVars:
@@ -11,6 +12,7 @@ services:
   # Config Server
   - type: web
     name: config-server
+    runtime: image
     image: vishalcr7/config-server
     plan: free
     envVars:
@@ -22,6 +24,7 @@ services:
   # API Gateway
   - type: web
     name: api-gateway
+    runtime: image
     image: vishalcr7/api-gateway
     plan: free
     envVars:
@@ -34,11 +37,12 @@ services:
       - key: FRONTEND_URL
         sync: false
       - key: KEYCLOAK_URL
-        value: http://keycloak:8080 # Internal communication
+        value: http://keycloak:8080
 
   # User Service
   - type: web
     name: user-service
+    runtime: image
     image: vishalcr7/user-service
     plan: free
     envVars:
@@ -64,6 +68,7 @@ services:
   # Activity Service
   - type: web
     name: activity-service
+    runtime: image
     image: vishalcr7/activity-service
     plan: free
     envVars:
@@ -87,6 +92,7 @@ services:
   # AI Service
   - type: web
     name: ai-service
+    runtime: image
     image: vishalcr7/ai-service
     plan: free
     envVars:
@@ -114,6 +120,7 @@ services:
   # Keycloak
   - type: web
     name: keycloak
+    runtime: image
     image: quay.io/keycloak/keycloak:26.5.2
     plan: free
     startCommand: start-dev
