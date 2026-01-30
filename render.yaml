@@ -34,7 +34,7 @@ services:
       - key: FRONTEND_URL
         sync: false
       - key: KEYCLOAK_URL
-        sync: false
+        value: http://keycloak:8080 # Internal communication
 
   # User Service
   - type: web
@@ -110,6 +110,24 @@ services:
         sync: false
       - key: RABBITMQ_PASSWORD
         sync: false
+
+  # Keycloak
+  - type: web
+    name: keycloak
+    image: quay.io/keycloak/keycloak:26.5.2
+    plan: free
+    startCommand: start-dev
+    envVars:
+      - key: PORT
+        value: 8080
+      - key: KC_BOOTSTRAP_ADMIN_USERNAME
+        value: admin
+      - key: KC_BOOTSTRAP_ADMIN_PASSWORD
+        value: admin
+      - key: KC_HTTP_ENABLED
+        value: true
+      - key: KC_PROXY
+        value: edge
 
 databases:
   - name: fitness_user_db
