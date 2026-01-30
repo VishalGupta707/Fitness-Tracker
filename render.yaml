@@ -6,7 +6,7 @@ services:
     plan: free
     envVars:
       - key: PORT
-        value: 8761
+        value: "8761"
 
   # Config Server
   - type: web
@@ -15,7 +15,7 @@ services:
     plan: free
     envVars:
       - key: PORT
-        value: 8888
+        value: "8888"
       - key: EUREKA_CLIENT_SERVICEURL_DEFAULTZONE
         value: http://eureka-server:8761/eureka/
 
@@ -26,7 +26,7 @@ services:
     plan: free
     envVars:
       - key: PORT
-        value: 8080
+        value: "8080"
       - key: EUREKA_CLIENT_SERVICEURL_DEFAULTZONE
         value: http://eureka-server:8761/eureka/
       - key: SPRING_CONFIG_IMPORT
@@ -43,7 +43,7 @@ services:
     plan: free
     envVars:
       - key: PORT
-        value: 8081
+        value: "8081"
       - key: EUREKA_CLIENT_SERVICEURL_DEFAULTZONE
         value: http://eureka-server:8761/eureka/
       - key: SPRING_CONFIG_IMPORT
@@ -68,7 +68,7 @@ services:
     plan: free
     envVars:
       - key: PORT
-        value: 8082
+        value: "8082"
       - key: EUREKA_CLIENT_SERVICEURL_DEFAULTZONE
         value: http://eureka-server:8761/eureka/
       - key: SPRING_CONFIG_IMPORT
@@ -91,7 +91,7 @@ services:
     plan: free
     envVars:
       - key: PORT
-        value: 8083
+        value: "8083"
       - key: EUREKA_CLIENT_SERVICEURL_DEFAULTZONE
         value: http://eureka-server:8761/eureka/
       - key: SPRING_CONFIG_IMPORT
@@ -119,13 +119,13 @@ services:
     startCommand: start-dev
     envVars:
       - key: PORT
-        value: 8080
+        value: "8080"
       - key: KC_BOOTSTRAP_ADMIN_USERNAME
         value: admin
       - key: KC_BOOTSTRAP_ADMIN_PASSWORD
         value: admin
       - key: KC_HTTP_ENABLED
-        value: true
+        value: "true"
       - key: KC_PROXY
         value: edge
 
