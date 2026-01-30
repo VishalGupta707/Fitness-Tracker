@@ -1,57 +1,44 @@
 services:
-  # Eureka Server
   - type: web
     name: eureka-server
     runtime: image
-    image: vishalcr7/eureka-server
+    image:
+      url: vishalcr7/eureka-server
     plan: free
-    envVars:
-      - key: PORT
-        value: "8761"
 
-  # Config Server
   - type: web
     name: config-server
     runtime: image
-    image: vishalcr7/config-server
+    image:
+      url: vishalcr7/config-server
     plan: free
     envVars:
-      - key: PORT
-        value: "8888"
-      - key: EUREKA_CLIENT_SERVICEURL_DEFAULTZONE
-        value: http://eureka-server:8761/eureka/
+      - key: SPRING_CONFIG_IMPORT
+        value: optional:configserver:http://config-server
 
-  # API Gateway
   - type: web
     name: api-gateway
     runtime: image
-    image: vishalcr7/api-gateway
+    image:
+      url: vishalcr7/api-gateway
     plan: free
     envVars:
-      - key: PORT
-        value: "8080"
-      - key: EUREKA_CLIENT_SERVICEURL_DEFAULTZONE
-        value: http://eureka-server:8761/eureka/
       - key: SPRING_CONFIG_IMPORT
-        value: optional:configserver:http://config-server:8888
+        value: optional:configserver:http://config-server
       - key: FRONTEND_URL
         sync: false
       - key: KEYCLOAK_URL
-        value: http://keycloak:8080
+        value: http://keycloak
 
-  # User Service
   - type: web
     name: user-service
     runtime: image
-    image: vishalcr7/user-service
+    image:
+      url: vishalcr7/user-service
     plan: free
     envVars:
-      - key: PORT
-        value: "8081"
-      - key: EUREKA_CLIENT_SERVICEURL_DEFAULTZONE
-        value: http://eureka-server:8761/eureka/
       - key: SPRING_CONFIG_IMPORT
-        value: optional:configserver:http://config-server:8888
+        value: optional:configserver:http://config-server
       - key: DATASOURCE_URL
         fromDatabase:
           name: fitness_user_db
@@ -65,79 +52,53 @@ services:
           name: fitness_user_db
           property: password
 
-  # Activity Service
   - type: web
     name: activity-service
     runtime: image
-    image: vishalcr7/activity-service
+    image:
+      url: vishalcr7/activity-service
     plan: free
     envVars:
-      - key: PORT
-        value: "8082"
-      - key: EUREKA_CLIENT_SERVICEURL_DEFAULTZONE
-        value: http://eureka-server:8761/eureka/
       - key: SPRING_CONFIG_IMPORT
-        value: optional:configserver:http://config-server:8888
+        value: optional:configserver:http://config-server
       - key: MONGODB_URI
         sync: false
       - key: RABBITMQ_HOST
-        sync: false
-      - key: RABBITMQ_PORT
         sync: false
       - key: RABBITMQ_USERNAME
         sync: false
       - key: RABBITMQ_PASSWORD
         sync: false
 
-  # AI Service
   - type: web
     name: ai-service
     runtime: image
-    image: vishalcr7/ai-service
+    image:
+      url: vishalcr7/ai-service
     plan: free
     envVars:
-      - key: PORT
-        value: "8083"
-      - key: EUREKA_CLIENT_SERVICEURL_DEFAULTZONE
-        value: http://eureka-server:8761/eureka/
       - key: SPRING_CONFIG_IMPORT
-        value: optional:configserver:http://config-server:8888
+        value: optional:configserver:http://config-server
       - key: MONGODB_URI
         sync: false
       - key: GEMINI_API_KEY
         sync: false
-      - key: GEMINI_API_URL
-        sync: false
-      - key: RABBITMQ_HOST
-        sync: false
-      - key: RABBITMQ_PORT
-        sync: false
-      - key: RABBITMQ_USERNAME
-        sync: false
-      - key: RABBITMQ_PASSWORD
-        sync: false
 
-  # Keycloak
   - type: web
     name: keycloak
     runtime: image
-    image: quay.io/keycloak/keycloak:26.5.2
+    image:
+      url: quay.io/keycloak/keycloak:26.5.2
     plan: free
     startCommand: start-dev
     envVars:
-      - key: PORT
-        value: "8080"
       - key: KC_BOOTSTRAP_ADMIN_USERNAME
         value: admin
       - key: KC_BOOTSTRAP_ADMIN_PASSWORD
         value: admin
       - key: KC_HTTP_ENABLED
         value: "true"
-      - key: KC_PROXY
-        value: edge
 
 databases:
   - name: fitness_user_db
     plan: free
-    databaseName: fitness_user_db
-    user: postgres
