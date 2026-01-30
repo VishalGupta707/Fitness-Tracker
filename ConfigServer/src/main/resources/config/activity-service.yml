@@ -3,13 +3,13 @@ spring:
     name: ACTIVITY-SERVICE
   data:
     mongodb:
-      uri: mongodb://localhost:27017/fitness-activity
+      uri: ${MONGODB_URI:mongodb://localhost:27017/fitness-activity}
       database: fitness-activity
   rabbitmq:
-    host: localhost
-    port: 5672
-    username: guest
-    password: guest
+    host: ${RABBITMQ_HOST:localhost}
+    port: ${RABBITMQ_PORT:5672}
+    username: ${RABBITMQ_USERNAME:guest}
+    password: ${RABBITMQ_PASSWORD:guest}
 
 server:
   port: 8082

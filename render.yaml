@@ -1,0 +1,118 @@
+services:
+  # Eureka Server
+  - type: web
+    name: eureka-server
+    image: vishalcr7/eureka-server
+    plan: free
+    envVars:
+      - key: PORT
+        value: 8761
+
+  # Config Server
+  - type: web
+    name: config-server
+    image: vishalcr7/config-server
+    plan: free
+    envVars:
+      - key: PORT
+        value: 8888
+      - key: EUREKA_CLIENT_SERVICEURL_DEFAULTZONE
+        value: http://eureka-server:8761/eureka/
+
+  # API Gateway
+  - type: web
+    name: api-gateway
+    image: vishalcr7/api-gateway
+    plan: free
+    envVars:
+      - key: PORT
+        value: 8080
+      - key: EUREKA_CLIENT_SERVICEURL_DEFAULTZONE
+        value: http://eureka-server:8761/eureka/
+      - key: SPRING_CONFIG_IMPORT
+        value: optional:configserver:http://config-server:8888
+      - key: FRONTEND_URL
+        sync: false
+      - key: KEYCLOAK_URL
+        sync: false
+
+  # User Service
+  - type: web
+    name: user-service
+    image: vishalcr7/user-service
+    plan: free
+    envVars:
+      - key: PORT
+        value: 8081
+      - key: EUREKA_CLIENT_SERVICEURL_DEFAULTZONE
+        value: http://eureka-server:8761/eureka/
+      - key: SPRING_CONFIG_IMPORT
+        value: optional:configserver:http://config-server:8888
+      - key: DATASOURCE_URL
+        fromDatabase:
+          name: fitness_user_db
+          property: connectionString
+      - key: DATASOURCE_USER
+        fromDatabase:
+          name: fitness_user_db
+          property: user
+      - key: DATASOURCE_PASSWORD
+        fromDatabase:
+          name: fitness_user_db
+          property: password
+
+  # Activity Service
+  - type: web
+    name: activity-service
+    image: vishalcr7/activity-service
+    plan: free
+    envVars:
+      - key: PORT
+        value: 8082
+      - key: EUREKA_CLIENT_SERVICEURL_DEFAULTZONE
+        value: http://eureka-server:8761/eureka/
+      - key: SPRING_CONFIG_IMPORT
+        value: optional:configserver:http://config-server:8888
+      - key: MONGODB_URI
+        sync: false
+      - key: RABBITMQ_HOST
+        sync: false
+      - key: RABBITMQ_PORT
+        sync: false
+      - key: RABBITMQ_USERNAME
+        sync: false
+      - key: RABBITMQ_PASSWORD
+        sync: false
+
+  # AI Service
+  - type: web
+    name: ai-service
+    image: vishalcr7/ai-service
+    plan: free
+    envVars:
+      - key: PORT
+        value: 8083
+      - key: EUREKA_CLIENT_SERVICEURL_DEFAULTZONE
+        value: http://eureka-server:8761/eureka/
+      - key: SPRING_CONFIG_IMPORT
+        value: optional:configserver:http://config-server:8888
+      - key: MONGODB_URI
+        sync: false
+      - key: GEMINI_API_KEY
+        sync: false
+      - key: GEMINI_API_URL
+        sync: false
+      - key: RABBITMQ_HOST
+        sync: false
+      - key: RABBITMQ_PORT
+        sync: false
+      - key: RABBITMQ_USERNAME
+        sync: false
+      - key: RABBITMQ_PASSWORD
+        sync: false
+
+databases:
+  - name: fitness_user_db
+    plan: free
+    databaseName: fitness_user_db
+    user: postgres

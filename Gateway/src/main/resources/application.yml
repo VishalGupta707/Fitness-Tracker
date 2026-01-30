@@ -3,3 +3,5 @@ spring:
     name: API-GATEWAY
   config:
     import: optional:configserver:http://localhost:8888
+
+frontend_url: ${FRONTEND_URL:http://localhost:5173}

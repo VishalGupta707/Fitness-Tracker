@@ -8,13 +8,13 @@ spring:
     name: AI-SERVICE
   data:
     mongodb:
-      uri: mongodb://localhost:27017/fitness-recommendation
+      uri: ${MONGODB_URI:mongodb://localhost:27017/fitness-recommendation}
       database: fitness-recommendation
   rabbitmq:
-    host: localhost
-    port: 5672
-    username: guest
-    password: guest
+    host: ${RABBITMQ_HOST:localhost}
+    port: ${RABBITMQ_PORT:5672}
+    username: ${RABBITMQ_USERNAME:guest}
+    password: ${RABBITMQ_PASSWORD:guest}
 
 #eureka:
 #  client:
