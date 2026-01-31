@@ -146,6 +146,8 @@ services:
         value: keycloak-0ge5.onrender.com
       - key: KC_PROXY
         value: edge
+      - key: KC_HTTP_PORT
+        value: "10000"
 
 databases:
   - name: fitness_user_db
