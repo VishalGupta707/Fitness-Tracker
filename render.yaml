@@ -29,6 +29,8 @@ services:
         value: api-gateway
       - key: EUREKA_CLIENT_SERVICEURL_DEFAULTZONE
         value: https://eureka-server-7v08.onrender.com/eureka/
+      - key: EUREKA_URL
+        value: https://eureka-server-7v08.onrender.com/eureka/
       - key: FRONTEND_URL
         sync: false
       - key: KEYCLOAK_URL
@@ -46,6 +48,8 @@ services:
       - key: SPRING_CLOUD_CONFIG_NAME
         value: user-service
       - key: EUREKA_CLIENT_SERVICEURL_DEFAULTZONE
+        value: https://eureka-server-7v08.onrender.com/eureka/
+      - key: EUREKA_URL
         value: https://eureka-server-7v08.onrender.com/eureka/
       - key: DB_HOST
         fromDatabase:
