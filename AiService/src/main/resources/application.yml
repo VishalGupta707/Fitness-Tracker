@@ -4,7 +4,7 @@
 
 spring:
   application:
-    name: AI-SERVICE
+    name: ai-service
   config:
       import: optional:configserver:http://localhost:8888
 

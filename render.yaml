@@ -25,6 +25,8 @@ services:
     envVars:
       - key: SPRING_CONFIG_IMPORT
         value: optional:configserver:https://config-server-j809.onrender.com
+      - key: SPRING_CLOUD_CONFIG_NAME
+        value: api-gateway
       - key: EUREKA_CLIENT_SERVICEURL_DEFAULTZONE
         value: https://eureka-server-7v08.onrender.com/eureka/
       - key: FRONTEND_URL
@@ -41,6 +43,8 @@ services:
     envVars:
       - key: SPRING_CONFIG_IMPORT
         value: optional:configserver:https://config-server-j809.onrender.com
+      - key: SPRING_CLOUD_CONFIG_NAME
+        value: user-service
       - key: EUREKA_CLIENT_SERVICEURL_DEFAULTZONE
         value: https://eureka-server-7v08.onrender.com/eureka/
       - key: DATASOURCE_URL
@@ -65,6 +69,8 @@ services:
     envVars:
       - key: SPRING_CONFIG_IMPORT
         value: optional:configserver:https://config-server-j809.onrender.com
+      - key: SPRING_CLOUD_CONFIG_NAME
+        value: activity-service
       - key: EUREKA_CLIENT_SERVICEURL_DEFAULTZONE
         value: https://eureka-server-7v08.onrender.com/eureka/
       - key: MONGODB_URI
@@ -85,6 +91,8 @@ services:
     envVars:
       - key: SPRING_CONFIG_IMPORT
         value: optional:configserver:https://config-server-j809.onrender.com
+      - key: SPRING_CLOUD_CONFIG_NAME
+        value: ai-service
       - key: EUREKA_CLIENT_SERVICEURL_DEFAULTZONE
         value: https://eureka-server-7v08.onrender.com/eureka/
       - key: MONGODB_URI
