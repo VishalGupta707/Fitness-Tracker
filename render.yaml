@@ -134,7 +134,7 @@ services:
     image:
     url: quay.io/keycloak/keycloak:26.5.2
     plan: free
-    startCommand: kc.sh start-dev
+    startCommand: start-dev --verbose
     envVars:
     - key: KC_BOOTSTRAP_ADMIN_USERNAME
       value: admin
