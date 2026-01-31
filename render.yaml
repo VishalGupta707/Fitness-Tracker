@@ -47,15 +47,15 @@ services:
         value: user-service
       - key: EUREKA_CLIENT_SERVICEURL_DEFAULTZONE
         value: https://eureka-server-7v08.onrender.com/eureka/
-      - key: DATASOURCE_URL
+      - key: SPRING_DATASOURCE_URL
         fromDatabase:
           name: fitness_user_db
           property: connectionString
-      - key: DATASOURCE_USER
+      - key: SPRING_DATASOURCE_USERNAME
         fromDatabase:
           name: fitness_user_db
           property: user
-      - key: DATASOURCE_PASSWORD
+      - key: SPRING_DATASOURCE_PASSWORD
         fromDatabase:
           name: fitness_user_db
           property: password
@@ -73,13 +73,13 @@ services:
         value: activity-service
       - key: EUREKA_CLIENT_SERVICEURL_DEFAULTZONE
         value: https://eureka-server-7v08.onrender.com/eureka/
-      - key: MONGODB_URI
+      - key: SPRING_DATA_MONGODB_URI
         sync: false
-      - key: RABBITMQ_HOST
+      - key: SPRING_RABBITMQ_HOST
         sync: false
-      - key: RABBITMQ_USERNAME
+      - key: SPRING_RABBITMQ_USERNAME
         sync: false
-      - key: RABBITMQ_PASSWORD
+      - key: SPRING_RABBITMQ_PASSWORD
         sync: false
 
   - type: web
@@ -95,7 +95,7 @@ services:
         value: ai-service
       - key: EUREKA_CLIENT_SERVICEURL_DEFAULTZONE
         value: https://eureka-server-7v08.onrender.com/eureka/
-      - key: MONGODB_URI
+      - key: SPRING_DATA_MONGODB_URI
         sync: false
       - key: GEMINI_API_KEY
         sync: false
