@@ -5,9 +5,6 @@ services:
     image:
       url: vishalcr7/eureka-server
     plan: free
-    envVars:
-      - key: PORT
-        value: "8761"
 
   - type: web
     name: config-server
@@ -16,11 +13,8 @@ services:
       url: vishalcr7/config-server
     plan: free
     envVars:
-      - key: PORT
-        value: "8888"
-    envVars:
-      - key: SPRING_CONFIG_IMPORT
-        value: optional:configserver:http://config-server:8888
+      - key: EUREKA_CLIENT_SERVICEURL_DEFAULTZONE
+        value: https://eureka-server-7v08.onrender.com/eureka/
 
   - type: web
     name: api-gateway
@@ -30,11 +24,13 @@ services:
     plan: free
     envVars:
       - key: SPRING_CONFIG_IMPORT
-        value: optional:configserver:http://config-server:8888
+        value: optional:configserver:https://config-server-j809.onrender.com
+      - key: EUREKA_CLIENT_SERVICEURL_DEFAULTZONE
+        value: https://eureka-server-7v08.onrender.com/eureka/
       - key: FRONTEND_URL
         sync: false
       - key: KEYCLOAK_URL
-        value: http://keycloak
+        value: https://keycloak-0ge5.onrender.com
 
   - type: web
     name: user-service
@@ -44,7 +40,9 @@ services:
     plan: free
     envVars:
       - key: SPRING_CONFIG_IMPORT
-        value: optional:configserver:http://config-server:8888
+        value: optional:configserver:https://config-server-j809.onrender.com
+      - key: EUREKA_CLIENT_SERVICEURL_DEFAULTZONE
+        value: https://eureka-server-7v08.onrender.com/eureka/
       - key: DATASOURCE_URL
         fromDatabase:
           name: fitness_user_db
@@ -66,7 +64,9 @@ services:
     plan: free
     envVars:
       - key: SPRING_CONFIG_IMPORT
-        value: optional:configserver:http://config-server:8888
+        value: optional:configserver:https://config-server-j809.onrender.com
+      - key: EUREKA_CLIENT_SERVICEURL_DEFAULTZONE
+        value: https://eureka-server-7v08.onrender.com/eureka/
       - key: MONGODB_URI
         sync: false
       - key: RABBITMQ_HOST
@@ -84,7 +84,9 @@ services:
     plan: free
     envVars:
       - key: SPRING_CONFIG_IMPORT
-        value: optional:configserver:http://config-server:8888
+        value: optional:configserver:https://config-server-j809.onrender.com
+      - key: EUREKA_CLIENT_SERVICEURL_DEFAULTZONE
+        value: https://eureka-server-7v08.onrender.com/eureka/
       - key: MONGODB_URI
         sync: false
       - key: GEMINI_API_KEY
@@ -104,6 +106,10 @@ services:
         value: admin
       - key: KC_HTTP_ENABLED
         value: "true"
+      - key: KC_HOSTNAME
+        value: keycloak-0ge5.onrender.com
+      - key: KC_PROXY
+        value: edge
 
 databases:
   - name: fitness_user_db
