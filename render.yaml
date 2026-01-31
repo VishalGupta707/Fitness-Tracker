@@ -109,7 +109,15 @@ services:
         value: ai-service
       - key: EUREKA_CLIENT_SERVICEURL_DEFAULTZONE
         value: https://eureka-server-7v08.onrender.com/eureka/
+      - key: EUREKA_URL
+        value: https://eureka-server-7v08.onrender.com/eureka/
       - key: SPRING_DATA_MONGODB_URI
+        sync: false
+      - key: SPRING_RABBITMQ_HOST
+        sync: false
+      - key: SPRING_RABBITMQ_USERNAME
+        sync: false
+      - key: SPRING_RABBITMQ_PASSWORD
         sync: false
       - key: GEMINI_API_URL
         value: https://generativelanguage.googleapis.com
