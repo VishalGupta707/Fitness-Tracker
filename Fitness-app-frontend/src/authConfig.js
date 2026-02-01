@@ -1,7 +1,7 @@
 export const authConfig = {
-  clientId: 'jqJuEFhTJfxyDV1nUzPT9OiwG7NTlp1x',
-  authorizationEndpoint: 'https://dev-kx4rqp8nlmvfojzq.us.auth0.com/authorize',
-  tokenEndpoint: 'https://dev-kx4rqp8nlmvfojzq.us.auth0.com/oauth/token',
+  clientId: 'XcE2I2b7QoUyXuU12XxI2QtAtLOOCFKD',
+  authorizationEndpoint: 'https://dev-qkhn82xqsr4lxwh5.us.auth0.com/authorize',
+  tokenEndpoint: 'https://dev-qkhn82xqsr4lxwh5.us.auth0.com/oauth/token',
   redirectUri: window.location.origin,
   scope: 'openid profile email offline_access',
   extraAuthParams: {

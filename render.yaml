@@ -43,9 +43,9 @@ services:
       - key: FRONTEND_URL
         sync: false
       - key: SPRING_SECURITY_OAUTH2_RESOURCESERVER_JWT_JWK_SET_URI
-        value: https://dev-kx4rqp8nlmvfojzq.us.auth0.com/.well-known/jwks.json
+        value: https://dev-qkhn82xqsr4lxwh5.us.auth0.com/.well-known/jwks.json
       - key: SPRING_SECURITY_OAUTH2_RESOURCESERVER_JWT_ISSUER_URI
-        value: https://dev-kx4rqp8nlmvfojzq.us.auth0.com/
+        value: https://dev-qkhn82xqsr4lxwh5.us.auth0.com/
 
   - type: web
     name: user-service
