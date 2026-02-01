@@ -5,6 +5,9 @@ services:
     image:
       url: vishalcr7/eureka-server
     plan: free
+    envVars:
+      - key: JAVA_TOOL_OPTIONS
+        value: "-Xmx300m -Xms300m"
 
   - type: web
     name: config-server
@@ -12,6 +15,9 @@ services:
     image:
       url: vishalcr7/config-server
     plan: free
+    envVars:
+      - key: JAVA_TOOL_OPTIONS
+        value: "-Xmx300m -Xms300m"
     envVars:
       - key: EUREKA_CLIENT_SERVICEURL_DEFAULTZONE
         value: https://eureka-server-7v08.onrender.com/eureka/
@@ -22,6 +28,9 @@ services:
     image:
       url: vishalcr7/api-gateway
     plan: free
+    envVars:
+      - key: JAVA_TOOL_OPTIONS
+        value: "-Xmx300m -Xms300m"
     envVars:
       - key: SPRING_CONFIG_IMPORT
         value: optional:configserver:https://config-server-j809.onrender.com
@@ -44,6 +53,9 @@ services:
     image:
       url: vishalcr7/user-service
     plan: free
+    envVars:
+      - key: JAVA_TOOL_OPTIONS
+        value: "-Xmx300m -Xms300m"
     envVars:
       - key: SPRING_CONFIG_IMPORT
         value: optional:configserver:https://config-server-j809.onrender.com
@@ -83,6 +95,9 @@ services:
       url: vishalcr7/activity-service
     plan: free
     envVars:
+      - key: JAVA_TOOL_OPTIONS
+        value: "-Xmx300m -Xms300m"
+    envVars:
       - key: SPRING_CONFIG_IMPORT
         value: optional:configserver:https://config-server-j809.onrender.com
       - key: SPRING_CLOUD_CONFIG_NAME
@@ -106,6 +121,9 @@ services:
     image:
       url: vishalcr7/ai-service
     plan: free
+    envVars:
+      - key: JAVA_TOOL_OPTIONS
+        value: "-Xmx300m -Xms300m"
     envVars:
       - key: SPRING_CONFIG_IMPORT
         value: optional:configserver:https://config-server-j809.onrender.com
