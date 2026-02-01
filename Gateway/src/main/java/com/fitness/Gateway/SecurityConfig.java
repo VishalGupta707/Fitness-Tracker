@@ -33,18 +33,26 @@ public class SecurityConfig {
                 .build();
     }
 
-    @Value("${frontend_url}")
+    @Value("${FRONTEND_URL:http://localhost:3000}")
     private String frontendUrl;
 
     @Bean
     public CorsConfigurationSource corsConfigurationSource(){
         CorsConfiguration config = new CorsConfiguration();
-        config.addAllowedOriginPattern("*"); // Allow ALL origins (Nuclear Option)
-        config.setAllowedMethods(Arrays.asList("GET","POST","PUT","DELETE", "OPTIONS"));
-        config.setAllowedHeaders(Arrays.asList("Authorization","Content-Type","X-User-ID"));
+         config.setAllowedOrigins(Arrays.asList(
+            frontendUrl,
+            "http://localhost:3000",
+            "http://localhost:5173"
+        ));
+        config.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS", "PATCH"));
+        config.setAllowedHeaders(Arrays.asList("*"));
+        config.setExposedHeaders(Arrays.asList("Authorization", "Content-Type"));
         config.setAllowCredentials(true);
-        UrlBasedCorsConfigurationSource source =new UrlBasedCorsConfigurationSource();
-        source.registerCorsConfiguration("/api/**", config);
+        config.setMaxAge(3600L);
+        
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        source.registerCorsConfiguration("/**", config);  // ✅ Apply to all paths
+        
         return source;
     }
 }
