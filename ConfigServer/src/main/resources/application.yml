@@ -6,6 +6,7 @@ spring:
     active: native
   cloud:
     config:
+      enabled: false  # Stop Config Server from being a client of itself
       server:
         native:
           search-locations: classpath:/config
