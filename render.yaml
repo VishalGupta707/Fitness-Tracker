@@ -33,8 +33,10 @@ services:
         value: https://eureka-server-7v08.onrender.com/eureka/
       - key: FRONTEND_URL
         sync: false
-      - key: KEYCLOAK_URL
-        value: https://keycloak-0ge5.onrender.com
+      - key: SPRING_SECURITY_OAUTH2_RESOURCESERVER_JWT_JWK_SET_URI
+        value: https://dev-kx4rqp8nlmvfojzq.us.auth0.com/.well-known/jwks.json
+      - key: SPRING_SECURITY_OAUTH2_RESOURCESERVER_JWT_ISSUER_URI
+        value: https://dev-kx4rqp8nlmvfojzq.us.auth0.com/
 
   - type: web
     name: user-service
@@ -127,31 +129,6 @@ services:
         value: https://generativelanguage.googleapis.com
       - key: GEMINI_API_KEY
         sync: false
-        
-  - type: web
-    name: keycloak
-    runtime: image
-    image:
-      url: quay.io/keycloak/keycloak:26.5.2
-    plan: free
-    startCommand: sh -c '/opt/keycloak/bin/kc.sh start-dev'
-
-    envVars:
-      - key: KC_BOOTSTRAP_ADMIN_USERNAME
-        value: admin
-      - key: KC_BOOTSTRAP_ADMIN_PASSWORD
-        value: admin
-      - key: KC_HTTP_ENABLED
-        value: "true"
-      - key: KC_HOSTNAME
-        value: keycloak-0ge5.onrender.com
-      - key: KC_HOSTNAME_STRICT
-        value: "false"
-      - key: KC_PROXY
-        value: edge
-      - key: KC_HTTP_PORT
-        value: "10000"
-
 
 databases:
   - name: fitness_user_db

@@ -1,8 +1,11 @@
 export const authConfig = {
-  clientId: 'oauth2-pkce-client',
-  authorizationEndpoint: `${import.meta.env.VITE_KEYCLOAK_URL || 'http://localhost:8181'}/realms/fitness-oauth2/protocol/openid-connect/auth`,
-  tokenEndpoint: `${import.meta.env.VITE_KEYCLOAK_URL || 'http://localhost:8181'}/realms/fitness-oauth2/protocol/openid-connect/token`,
+  clientId: 'jqJuEFhTJfxyDV1nUzPT9OiwG7NTlp1x',
+  authorizationEndpoint: 'https://dev-kx4rqp8nlmvfojzq.us.auth0.com/authorize',
+  tokenEndpoint: 'https://dev-kx4rqp8nlmvfojzq.us.auth0.com/oauth/token',
   redirectUri: window.location.origin,
   scope: 'openid profile email offline_access',
+  extraAuthParams: {
+    audience: 'https://fitness-tracker.com'
+  },
   onRefreshTokenExpire: (event) => event.logIn(),
 }
