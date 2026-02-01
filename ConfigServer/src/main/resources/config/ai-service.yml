@@ -1,5 +1,14 @@
 #spring.application.name=AiService
 
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  endpoint:
+    health:
+      show-details: always
+
 server:
   port: ${PORT:8083}
 
