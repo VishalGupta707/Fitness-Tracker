@@ -39,11 +39,11 @@ public class SecurityConfig {
     @Bean
     public CorsConfigurationSource corsConfigurationSource(){
         CorsConfiguration config = new CorsConfiguration();
-         config.setAllowedOrigins(Arrays.asList(
-            frontendUrl,
-            "http://localhost:3000",
-            "http://localhost:5173"
-        ));
+        if(frontendUrl != null && !frontendUrl.isEmpty()){
+            config.setAllowedOrigins(Arrays.asList(frontendUrl.split(",")));
+        } else {
+             config.setAllowedOrigins(Arrays.asList("http://localhost:3000", "http://localhost:5173"));
+        }
         config.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS", "PATCH"));
         config.setAllowedHeaders(Arrays.asList("*"));
         config.setExposedHeaders(Arrays.asList("Authorization", "Content-Type"));
