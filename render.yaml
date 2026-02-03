@@ -22,7 +22,7 @@ services:
         value: "-Xmx300m -Xms300m"
 
       - key: EUREKA_CLIENT_SERVICEURL_DEFAULTZONE
-        value: https://eureka-server-7v08.onrender.com/eureka/
+        value: https://eureka-server-zwyv.onrender.com/eureka/
 
   - type: web
     name: api-gateway
@@ -36,13 +36,13 @@ services:
         value: "-Xmx300m -Xms300m"
 
       - key: SPRING_CONFIG_IMPORT
-        value: optional:configserver:https://config-server-j809.onrender.com
+        value: optional:configserver:https://config-server-slvb.onrender.com
       - key: SPRING_CLOUD_CONFIG_NAME
         value: api-gateway
       - key: EUREKA_CLIENT_SERVICEURL_DEFAULTZONE
-        value: https://eureka-server-7v08.onrender.com/eureka/
+        value: https://eureka-server-zwyv.onrender.com/eureka/
       - key: EUREKA_URL
-        value: https://eureka-server-7v08.onrender.com/eureka/
+        value: https://eureka-server-zwyv.onrender.com/eureka/
       - key: FRONTEND_URL
         sync: false
       - key: SPRING_SECURITY_OAUTH2_RESOURCESERVER_JWT_JWK_SET_URI
@@ -62,13 +62,13 @@ services:
         value: "-Xmx300m -Xms300m"
 
       - key: SPRING_CONFIG_IMPORT
-        value: optional:configserver:https://config-server-j809.onrender.com
+        value: optional:configserver:https://config-server-slvb.onrender.com
       - key: SPRING_CLOUD_CONFIG_NAME
         value: user-service
       - key: EUREKA_CLIENT_SERVICEURL_DEFAULTZONE
-        value: https://eureka-server-7v08.onrender.com/eureka/
+        value: https://eureka-server-zwyv.onrender.com/eureka/
       - key: EUREKA_URL
-        value: https://eureka-server-7v08.onrender.com/eureka/
+        value: https://eureka-server-zwyv.onrender.com/eureka/
       - key: DB_HOST
         fromDatabase:
           name: fitness_user_db
@@ -104,11 +104,11 @@ services:
         value: "-Xmx300m -Xms300m"
 
       - key: SPRING_CONFIG_IMPORT
-        value: optional:configserver:https://config-server-j809.onrender.com
+        value: optional:configserver:https://config-server-slvb.onrender.com
       - key: SPRING_CLOUD_CONFIG_NAME
         value: activity-service
       - key: EUREKA_CLIENT_SERVICEURL_DEFAULTZONE
-        value: https://eureka-server-7v08.onrender.com/eureka/
+        value: https://eureka-server-zwyv.onrender.com/eureka/
       - key: MONGODB_URI
         sync: false
       - key: RABBITMQ_HOST
@@ -132,13 +132,13 @@ services:
         value: "-Xmx300m -Xms300m"
 
       - key: SPRING_CONFIG_IMPORT
-        value: optional:configserver:https://config-server-j809.onrender.com
+        value: optional:configserver:https://config-server-slvb.onrender.com
       - key: SPRING_CLOUD_CONFIG_NAME
         value: ai-service
       - key: EUREKA_CLIENT_SERVICEURL_DEFAULTZONE
-        value: https://eureka-server-7v08.onrender.com/eureka/
+        value: https://eureka-server-zwyv.onrender.com/eureka/
       - key: EUREKA_URL
-        value: https://eureka-server-7v08.onrender.com/eureka/
+        value: https://eureka-server-zwyv.onrender.com/eureka/
       - key: MONGODB_URI
         sync: false
       - key: RABBITMQ_HOST

@@ -1,7 +1,7 @@
 import axios from "axios";
 import { Activity } from "react";
 
-const API_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:8080/api';
+const API_URL = import.meta.env.VITE_API_BASE_URL || 'https://api-gateway-r3oo.onrender.com/api';
 
 const api = axios.create({
     baseURL: API_URL
