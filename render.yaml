@@ -142,6 +142,3 @@ services:
       - key: GEMINI_API_KEY
         sync: false
 
-databases:
-  - name: fitness_user_db
-    plan: free
