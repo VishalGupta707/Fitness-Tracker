@@ -1,9 +1,9 @@
 services:
   - type: web
     name: eureka-server
-    runtime: image
-    image:
-      url: vishalcr7/eureka-server
+    runtime: docker
+    dockerContext: Eureka
+    dockerfilePath: Eureka/Dockerfile
     healthCheckPath: /actuator/health
     plan: free
     envVars:
@@ -12,9 +12,9 @@ services:
 
   - type: web
     name: config-server
-    runtime: image
-    image:
-      url: vishalcr7/config-server
+    runtime: docker
+    dockerContext: ConfigServer
+    dockerfilePath: ConfigServer/Dockerfile
     healthCheckPath: /actuator/health
     plan: free
     envVars:
@@ -26,9 +26,9 @@ services:
 
   - type: web
     name: api-gateway
-    runtime: image
-    image:
-      url: vishalcr7/api-gateway
+    runtime: docker
+    dockerContext: Gateway
+    dockerfilePath: Gateway/Dockerfile
     healthCheckPath: /actuator/health
     plan: free
     envVars:
@@ -52,9 +52,9 @@ services:
 
   - type: web
     name: user-service
-    runtime: image
-    image:
-      url: vishalcr7/user-service
+    runtime: docker
+    dockerContext: Fitness
+    dockerfilePath: Fitness/Dockerfile
     healthCheckPath: /actuator/health
     plan: free
     envVars:
@@ -79,3 +79,69 @@ services:
         sync: false
       - key: DB_PASS
         sync: false
+
+  - type: web
+    name: activity-service
+    runtime: docker
+    dockerContext: ActivityService
+    dockerfilePath: ActivityService/Dockerfile
+    healthCheckPath: /actuator/health
+    plan: free
+    envVars:
+      - key: JAVA_TOOL_OPTIONS
+        value: "-Xmx300m -Xms300m"
+
+      - key: SPRING_CONFIG_IMPORT
+        value: optional:configserver:https://config-server-slvb.onrender.com
+      - key: SPRING_CLOUD_CONFIG_NAME
+        value: activity-service
+      - key: EUREKA_CLIENT_SERVICEURL_DEFAULTZONE
+        value: https://eureka-server-zwyv.onrender.com/eureka/
+      - key: MONGODB_URI
+        sync: false
+      - key: RABBITMQ_HOST
+        sync: false
+      - key: RABBITMQ_USERNAME
+        sync: false
+      - key: RABBITMQ_PASSWORD
+        sync: false
+      - key: RABBITMQ_VHOST
+        sync: false
+
+  - type: web
+    name: ai-service
+    runtime: docker
+    dockerContext: AiService
+    dockerfilePath: AiService/Dockerfile
+    healthCheckPath: /actuator/health
+    plan: free
+    envVars:
+      - key: JAVA_TOOL_OPTIONS
+        value: "-Xmx300m -Xms300m"
+
+      - key: SPRING_CONFIG_IMPORT
+        value: optional:configserver:https://config-server-slvb.onrender.com
+      - key: SPRING_CLOUD_CONFIG_NAME
+        value: ai-service
+      - key: EUREKA_CLIENT_SERVICEURL_DEFAULTZONE
+        value: https://eureka-server-zwyv.onrender.com/eureka/
+      - key: EUREKA_URL
+        value: https://eureka-server-zwyv.onrender.com/eureka/
+      - key: MONGODB_URI
+        sync: false
+      - key: RABBITMQ_HOST
+        sync: false
+      - key: RABBITMQ_USERNAME
+        sync: false
+      - key: RABBITMQ_PASSWORD
+        sync: false
+      - key: RABBITMQ_VHOST
+        sync: false
+      - key: GEMINI_API_URL
+        value: https://generativelanguage.googleapis.com
+      - key: GEMINI_API_KEY
+        sync: false
+
+databases:
+  - name: fitness_user_db
+    plan: free
