@@ -44,7 +44,7 @@ services:
       - key: EUREKA_URL
         value: https://eureka-server-zwyv.onrender.com/eureka/
       - key: FRONTEND_URL
-        sync: false
+        value: https://smart-fitness-ai.netlify.app
       - key: SPRING_SECURITY_OAUTH2_RESOURCESERVER_JWT_JWK_SET_URI
         value: https://dev-qkhn82xqsr4lxwh5.us.auth0.com/.well-known/jwks.json
       - key: SPRING_SECURITY_OAUTH2_RESOURCESERVER_JWT_ISSUER_URI

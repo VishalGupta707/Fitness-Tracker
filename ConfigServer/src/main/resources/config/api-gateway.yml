@@ -13,9 +13,10 @@ spring:
       globalcors:
         cors-configurations:
           '[/**]':
-            allowedOrigins: "*"
+            allowedOrigins: "https://smart-fitness-ai.netlify.app"
             allowedMethods: "*"
             allowedHeaders: "*"
+            allowCredentials: true
       server:
         webflux:
           routes:
